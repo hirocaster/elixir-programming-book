@@ -26,6 +26,12 @@ defmodule MyList do
   def take([ head | tail ], num) do
     [head] ++ take(tail, num - 1)
   end
+
+  def flatten([]), do: []
+  def flatten([ head | tail ]) do
+    flatten(head) ++ flatten(tail)
+  end
+  def flatten(head), do: [head]
 end
 
 list = [1,2,3]
@@ -47,3 +53,7 @@ MyList.split(list, 5)  # => {[1, 2, 3, 4, 5], []}
 
 Enum.take(list, 3)    # => [1, 2, 3]
 MyList.take(list, 3)  # => [1, 2, 3]
+
+list = [ 1, [ 2, 3, [4] ], 5, [[[6]]]]
+List.flatten(list)   # => [1, 2, 3, 4, 5, 6]
+MyList.flatten(list) # => [1, 2, 3, 4, 5, 6]
